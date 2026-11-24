@@ -396,6 +396,7 @@ GameObject:
   - component: {fileID: 699245314}
   - component: {fileID: 699245313}
   - component: {fileID: 699245316}
+  - component: {fileID: 699245317}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -512,6 +513,20 @@ MonoBehaviour:
       end: {x: 0.8, y: 0.6}
       endpointRadii: {x: 0.15, y: 0.2}
       angleToleranceDegrees: 25
+--- !u!114 &699245317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 699245311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d53718c28fe44338a359446ae239ab8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AuditionFlow
+  introClip: {fileID: 0}
+  songTitle: RESCENE - Pretty Girl
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0

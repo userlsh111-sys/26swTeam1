@@ -177,6 +177,8 @@ public class GameFlow : MonoBehaviour
 
     private void OnGUI()
     {
+        AuditionFlow audition = GetComponent<AuditionFlow>();
+        if (audition != null && audition.isActiveAndEnabled) return;
         if (!showDebugOverlay) return;
         GUI.Box(new Rect(10, 10, 680, 180), "Pose challenge - temporary test data");
         GUI.Label(new Rect(20, 35, 660, 22), input.Status);

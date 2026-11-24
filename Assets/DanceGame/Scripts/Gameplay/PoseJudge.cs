@@ -11,11 +11,13 @@ public class PoseJudge : MonoBehaviour
     private KinectInput input;
     private Texture2D circle;
     private GameFlow flow;
+    private AuditionFlow audition;
 
     private void Awake()
     {
         input = GetComponent<KinectInput>();
         flow = GetComponent<GameFlow>();
+        audition = GetComponent<AuditionFlow>();
         circle = new Texture2D(64, 64, TextureFormat.RGBA32, false);
         for (int y = 0; y < 64; y++)
             for (int x = 0; x < 64; x++)
@@ -42,9 +44,14 @@ public class PoseJudge : MonoBehaviour
     }
     private void OnGUI()
     {
+        bool split = audition != null && audition.isActiveAndEnabled;
+        if (split && audition.Stage != AuditionStage.Playing) return;
         if (flow != null && flow.isActiveAndEnabled)
         {
-            DrawChallengeTargets();
+            float width = split ? Screen.width * .5f : Screen.width;
+            GUI.BeginGroup(new Rect(0, 0, width, Screen.height));
+            DrawChallengeTargets(width);
+            GUI.EndGroup();
             return;
         }
         GUI.Box(new Rect(10, 10, 650, 115), "Kinect right-hand test");
@@ -66,7 +73,7 @@ public class PoseJudge : MonoBehaviour
     }
     private void OnDestroy() { if (circle != null) Destroy(circle); }
 
-    private void DrawChallengeTargets()
+    private void DrawChallengeTargets(float width)
     {
         PoseDefinition pose = flow.CurrentPose;
         if (pose == null) return;
@@ -78,18 +85,18 @@ public class PoseJudge : MonoBehaviour
             foreach (JointTarget target in pose.joints)
             {
                 if (target == null) continue;
-                GUI.DrawTexture(new Rect((target.center.x - target.radii.x) * Screen.width,
+                GUI.DrawTexture(new Rect((target.center.x - target.radii.x) * width,
                     (1 - target.center.y - target.radii.y) * Screen.height,
-                    target.radii.x * 2 * Screen.width, target.radii.y * 2 * Screen.height), circle);
-                GUI.Label(new Rect(target.center.x * Screen.width,
+                    target.radii.x * 2 * width, target.radii.y * 2 * Screen.height), circle);
+                GUI.Label(new Rect(target.center.x * width,
                     (1 - target.center.y) * Screen.height, 180, 25), target.joint.ToString());
             }
         if (pose.bones != null)
             foreach (BoneTarget target in pose.bones)
             {
                 if (target == null) continue;
-                Vector2 start = new Vector2(target.start.x * Screen.width, (1 - target.start.y) * Screen.height);
-                Vector2 end = new Vector2(target.end.x * Screen.width, (1 - target.end.y) * Screen.height);
+                Vector2 start = new Vector2(target.start.x * width, (1 - target.start.y) * Screen.height);
+                Vector2 end = new Vector2(target.end.x * width, (1 - target.end.y) * Screen.height);
                 GUIUtility.RotateAroundPivot(Mathf.Atan2(end.y - start.y, end.x - start.x) * Mathf.Rad2Deg, start);
                 GUI.DrawTexture(new Rect(start.x, start.y - 4, Vector2.Distance(start, end), 8), Texture2D.whiteTexture);
                 GUI.matrix = savedMatrix;
