@@ -1,0 +1,48 @@
+# Unity-generated caches and local settings
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Ll]ogs/
+/[Uu]ser[Ss]ettings/
+/[Mm]emoryCaptures/
+/[Mm]emoryCaptures.meta
+/[Rr]ecordings/
+/[Rr]ecordings.meta
+
+# Build output
+/[Bb]uild/
+/[Bb]uilds/
+/KinectBridge/[Bb]in/
+/KinectBridge/[Oo]bj/
+
+# Scene recovery
+/Assets/_Recovery/
+/Assets/_Recovery.meta
+
+# IDE caches and per-user files
+.vs/
+.idea/
+*.csproj.user
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Unity generates these at the project root.
+# Keep KinectBridge/KinectBridge.csproj in version control.
+/*.csproj
+/*.sln
+/*.slnx
+/*.unityproj
+/*.pidb
+/*.booproj
+/*.opendb
+/*.VC.db
+
+# OS metadata
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Keep Assets (including .meta and plugin DLLs), Packages,
+# ProjectSettings, .vsconfig and KinectBridge source/configuration.
