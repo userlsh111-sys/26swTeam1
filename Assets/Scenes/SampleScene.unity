@@ -475,6 +475,8 @@ MonoBehaviour:
   feedbackSeconds: 1
   perfectPoints: 100
   goodPoints: 70
+  songClip: {fileID: 8300000, guid: 168a96bd87fa4e4f8572619a3d88d014, type: 3}
+  songVolume: 0.8
   showDebugOverlay: 1
   poses:
   - id: test-right
@@ -584,3 +586,4 @@ SceneRoots:
   - {fileID: 410087041}
   - {fileID: 832575519}
   - {fileID: 699245312}
+

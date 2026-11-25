@@ -136,7 +136,7 @@ public class AuditionFlow : MonoBehaviour
             }
             else if (Stage == AuditionStage.Confirmation)
             {
-                GUI.Label(new Rect(Screen.width * .55f, 80, Screen.width * .4f, 90), songTitle + "\n선택한 곡으로 시작할까요?\n현재는 음악 없이 기존 3포즈 테스트로 연결됩니다.");
+                GUI.Label(new Rect(Screen.width * .55f, 80, Screen.width * .4f, 90), songTitle + "\n선택한 곡으로 시작할까요?\n첫 카운트다운 후 음악과 3포즈 테스트가 시작됩니다.");
                 GUI.Box(StartButton, "시작\n오른손 (Right Hand)");
                 GUI.Box(BackButton, "이전\n왼손 (Left Hand)");
                 if (game.Error != null) GUI.Label(new Rect(Screen.width * .55f, 180, Screen.width * .4f, 70), game.Error);
@@ -186,3 +186,4 @@ public class AuditionFlow : MonoBehaviour
         if (voice != null) Destroy(voice);
     }
 }
+

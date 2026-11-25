@@ -46,6 +46,10 @@ public class GameFlow : MonoBehaviour
     public event Action StateChanged;
     public event Action<int, PoseGrade, int> PoseJudged;
 
+    [SerializeField] private AudioClip songClip;
+    [SerializeField, Range(0f, 1f)] private float songVolume = 0.8f;
+    private AudioSource music;
+    private bool musicStarted;
     private KinectInput input;
     private readonly PoseHoldTracker hold = new PoseHoldTracker();
     private float phaseEnd;
@@ -58,12 +62,23 @@ public class GameFlow : MonoBehaviour
     {
         ResetGame();
         if (!ValidateConfiguration()) return;
+        if (songClip != null)
+        {
+            if (music == null) music = gameObject.AddComponent<AudioSource>();
+            music.playOnAwake = false;
+            music.loop = false;
+            music.spatialBlend = 0;
+            music.volume = songVolume;
+            music.clip = songClip;
+        }
         PoseIndex = 0;
         SetPhase(DanceGameState.Countdown, countdownSeconds);
     }
 
     public void ResetGame()
     {
+        if (music != null) music.Stop();
+        musicStarted = false;
         State = DanceGameState.Idle;
         PoseIndex = -1;
         Score = PerfectCount = GoodCount = MissCount = 0;
@@ -167,6 +182,12 @@ public class GameFlow : MonoBehaviour
 
     private void SetPhase(DanceGameState state, float duration)
     {
+        if (state == DanceGameState.Judging && !musicStarted)
+        {
+            musicStarted = true;
+            if (music != null && music.clip != null) music.Play();
+        }
+        if (state == DanceGameState.Finished && music != null) music.Stop();
         State = state;
         RemainingSeconds = duration;
         phaseEnd = Time.realtimeSinceStartup + duration;
@@ -174,6 +195,7 @@ public class GameFlow : MonoBehaviour
     }
 
     private void OnDisable() { ResetGame(); }
+    private void OnDestroy() { if (music != null) Destroy(music); }
 
     private void OnGUI()
     {
@@ -194,3 +216,4 @@ public class GameFlow : MonoBehaviour
         if (Error != null) GUI.Label(new Rect(20, 163, 660, 22), Error);
     }
 }
+
